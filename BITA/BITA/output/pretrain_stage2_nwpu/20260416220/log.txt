@@ -1,0 +1,107 @@
+{
+    "run": {
+        "task": "image_text_pretrain",
+        "lr_sched": "linear_warmup_cosine_lr",
+        "init_lr": 0.0001,
+        "min_lr": 1e-05,
+        "warmup_lr": 1e-06,
+        "weight_decay": 0.05,
+        "max_epoch": 10,
+        "batch_size_train": 48,
+        "batch_size_eval": 64,
+        "num_workers": 0,
+        "warmup_steps": 3000,
+        "save_only_last_epoch": true,
+        "seed": 42,
+        "output_dir": "output/pretrain_stage2_nwpu/",
+        "amp": true,
+        "resume_ckpt_path": null,
+        "evaluate": false,
+        "train_splits": [
+            "train"
+        ],
+        "device": "cuda",
+        "world_size": 2,
+        "dist_url": "env://",
+        "distributed": true,
+        "rank": 0,
+        "gpu": 0,
+        "dist_backend": "nccl"
+    },
+    "model": {
+        "arch": "bita_opt",
+        "load_finetuned": false,
+        "pretrained": "/home/lzc/code/BITA-main/BITA/BITA/output/pretrain_stage1_nwpu/20260416144/checkpoint_19.pth",
+        "finetuned": "",
+        "vit_model": "clip_L",
+        "image_size": 224,
+        "drop_path_rate": 0,
+        "use_grad_checkpoint": false,
+        "vit_precision": "fp16",
+        "freeze_vit": true,
+        "num_query_token": 32,
+        "opt_model": "facebook/opt-2.7b",
+        "prompt": "",
+        "model_type": "pretrain_opt2.7b",
+        "load_pretrained": true,
+        "agent_num": 60,
+        "gate_bias": -0.8
+    },
+    "preprocess": {
+        "vis_processor": {
+            "train": {
+                "name": "bita_image_train",
+                "image_size": 224
+            },
+            "eval": {
+                "name": "bita_image_eval",
+                "image_size": 224
+            }
+        },
+        "text_processor": {
+            "train": {
+                "name": "bita_caption"
+            },
+            "eval": {
+                "name": "bita_caption"
+            }
+        }
+    },
+    "datasets": {
+        "nwpu_caption": {
+            "dataset_card": "dataset_card/nwpu_caption.md",
+            "data_type": "images",
+            "build_info": {
+                "annotations": {
+                    "train": {
+                        "storage": "/home/lzc/dataset/RSIC/NWPU/annotations/NWPU_train.json"
+                    }
+                },
+                "images": {
+                    "storage": "/home/lzc/dataset/RSIC/NWPU/images/"
+                }
+            },
+            "vis_processor": {
+                "train": {
+                    "name": "bita_image_train",
+                    "image_size": 224
+                }
+            },
+            "text_processor": {
+                "train": {
+                    "name": "bita_caption"
+                }
+            }
+        }
+    }
+}
+{"train_lr": "0.000", "train_loss": "2.900"}
+{"train_lr": "0.000", "train_loss": "1.467"}
+{"train_lr": "0.000", "train_loss": "1.172"}
+{"train_lr": "0.000", "train_loss": "1.038"}
+{"train_lr": "0.000", "train_loss": "0.954"}
+{"train_lr": "0.000", "train_loss": "0.895"}
+{"train_lr": "0.000", "train_loss": "0.851"}
+{"train_lr": "0.000", "train_loss": "0.818"}
+{"train_lr": "0.000", "train_loss": "0.793"}
+{"train_lr": "0.000", "train_loss": "0.777"}

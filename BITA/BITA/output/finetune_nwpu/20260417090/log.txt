@@ -1,0 +1,150 @@
+{
+    "run": {
+        "task": "captioning",
+        "lr_sched": "linear_warmup_cosine_lr",
+        "init_lr": 1e-05,
+        "min_lr": 0,
+        "warmup_lr": 1e-08,
+        "warmup_steps": 1000,
+        "weight_decay": 0.05,
+        "max_epoch": 50,
+        "batch_size_train": 48,
+        "batch_size_eval": 16,
+        "num_workers": 0,
+        "accum_grad_iters": 1,
+        "max_len": 22,
+        "min_len": 5,
+        "num_beams": 5,
+        "seed": 42,
+        "output_dir": "output/finetune_nwpu/",
+        "amp": true,
+        "resume_ckpt_path": null,
+        "evaluate": false,
+        "train_splits": [
+            "train"
+        ],
+        "valid_splits": [
+            "val"
+        ],
+        "test_splits": [
+            "test"
+        ],
+        "device": "cuda",
+        "world_size": 2,
+        "dist_url": "env://",
+        "distributed": true,
+        "rank": 0,
+        "gpu": 0,
+        "dist_backend": "nccl"
+    },
+    "model": {
+        "arch": "bita_opt",
+        "load_finetuned": true,
+        "pretrained": "",
+        "finetuned": "/home/lzc/code/BITA-main/BITA/BITA/output/pretrain_stage2_nwpu/20260416220/checkpoint_9.pth",
+        "vit_model": "clip_L",
+        "image_size": 224,
+        "drop_path_rate": 0,
+        "use_grad_checkpoint": false,
+        "vit_precision": "fp16",
+        "freeze_vit": true,
+        "num_query_token": 32,
+        "opt_model": "facebook/opt-2.7b",
+        "prompt": "a photo of",
+        "model_type": "caption_rsicd_opt2.7b",
+        "dataset_name": "nwpu",
+        "agent_num": 60,
+        "gate_bias": -0.8
+    },
+    "preprocess": {
+        "vis_processor": {
+            "train": {
+                "name": "bita_image_train",
+                "image_size": 224
+            },
+            "eval": {
+                "name": "bita_image_eval",
+                "image_size": 224
+            }
+        },
+        "text_processor": {
+            "train": {
+                "name": "bita_caption"
+            },
+            "eval": {
+                "name": "bita_caption"
+            }
+        }
+    },
+    "datasets": {
+        "nwpu_caption": {
+            "dataset_card": "dataset_card/nwpu_caption.md",
+            "data_type": "images",
+            "build_info": {
+                "annotations": {
+                    "train": {
+                        "storage": "/home/lzc/dataset/RSIC/NWPU/annotations/NWPU_train.json"
+                    },
+                    "val": {
+                        "storage": "/home/lzc/dataset/RSIC/NWPU/annotations/NWPU_val.json"
+                    },
+                    "test": {
+                        "storage": "/home/lzc/dataset/RSIC/NWPU/annotations/NWPU_test.json"
+                    }
+                },
+                "images": {
+                    "storage": "/home/lzc/dataset/RSIC/NWPU/images/"
+                }
+            },
+            "vis_processor": {
+                "train": {
+                    "name": "bita_image_train",
+                    "image_size": 224
+                },
+                "eval": {
+                    "name": "bita_image_eval",
+                    "image_size": 224
+                }
+            },
+            "text_processor": {
+                "train": {
+                    "name": "bita_caption",
+                    "prompt": "a photo of"
+                },
+                "eval": {
+                    "name": "bita_caption"
+                }
+            }
+        }
+    }
+}
+{"train_lr": "0.000", "train_loss": "1.120"}
+{"val_Bleu_1": 0.8834332015234739, "val_Bleu_2": 0.8140119837523726, "val_Bleu_3": 0.755441413061466, "val_Bleu_4": 0.7055631661370594, "val_METEOR": 0.47053614936115473, "val_ROUGE_L": 0.7999331406551972, "val_CIDEr": 1.9212578796834174, "val_SPICE": 0.3617459769443243, "val_agg_metrics": 2.626821045820477, "val_best_epoch": 0}
+{"train_lr": "0.000", "train_loss": "0.850"}
+{"val_Bleu_1": 0.8795682454586584, "val_Bleu_2": 0.8102575049274676, "val_Bleu_3": 0.7529137793371268, "val_Bleu_4": 0.7041035296985285, "val_METEOR": 0.4718125449221098, "val_ROUGE_L": 0.8011552834388455, "val_CIDEr": 1.90087201965972, "val_SPICE": 0.36083275001597853, "val_agg_metrics": 2.6049755493582483, "val_best_epoch": 0}
+{"train_lr": "0.000", "train_loss": "0.836"}
+{"val_Bleu_1": 0.8781150235860086, "val_Bleu_2": 0.8085316518668376, "val_Bleu_3": 0.7506084877754697, "val_Bleu_4": 0.7015748047441075, "val_METEOR": 0.47050916945357446, "val_ROUGE_L": 0.7989633498535625, "val_CIDEr": 1.8972561682636735, "val_SPICE": 0.36300722904621047, "val_agg_metrics": 2.598830973007781, "val_best_epoch": 0}
+{"train_lr": "0.000", "train_loss": "0.824"}
+{"val_Bleu_1": 0.8852174332505033, "val_Bleu_2": 0.8169715602529587, "val_Bleu_3": 0.7601824680927151, "val_Bleu_4": 0.7121910661602454, "val_METEOR": 0.47318713362915155, "val_ROUGE_L": 0.803475368037525, "val_CIDEr": 1.9214108451796899, "val_SPICE": 0.3651304585728967, "val_agg_metrics": 2.633601911339935, "val_best_epoch": 3}
+{"train_lr": "0.000", "train_loss": "0.816"}
+{"val_Bleu_1": 0.878848536841081, "val_Bleu_2": 0.8093931969424504, "val_Bleu_3": 0.7518514327385373, "val_Bleu_4": 0.7032528090892475, "val_METEOR": 0.4689221640109608, "val_ROUGE_L": 0.7986380539363205, "val_CIDEr": 1.8921817916100907, "val_SPICE": 0.3641041290225722, "val_agg_metrics": 2.5954346006993383, "val_best_epoch": 3}
+{"train_lr": "0.000", "train_loss": "0.809"}
+{"val_Bleu_1": 0.8814405762304711, "val_Bleu_2": 0.8133359876587573, "val_Bleu_3": 0.7570842186348916, "val_Bleu_4": 0.7093372332639607, "val_METEOR": 0.472062354289597, "val_ROUGE_L": 0.8016442733594104, "val_CIDEr": 1.9168916835334722, "val_SPICE": 0.3628932926563402, "val_agg_metrics": 2.626228916797433, "val_best_epoch": 3}
+{"train_lr": "0.000", "train_loss": "0.803"}
+{"val_Bleu_1": 0.8810010943521702, "val_Bleu_2": 0.8117361582603233, "val_Bleu_3": 0.7540114064715143, "val_Bleu_4": 0.7049996301424859, "val_METEOR": 0.47129591038038704, "val_ROUGE_L": 0.8004884725927903, "val_CIDEr": 1.9101756069220053, "val_SPICE": 0.3650982515235768, "val_agg_metrics": 2.6151752370644914, "val_best_epoch": 3}
+{"train_lr": "0.000", "train_loss": "0.798"}
+{"val_Bleu_1": 0.8781180479954354, "val_Bleu_2": 0.807595840745881, "val_Bleu_3": 0.7504359729789265, "val_Bleu_4": 0.70254866781053, "val_METEOR": 0.4712259464518892, "val_ROUGE_L": 0.7995615954601231, "val_CIDEr": 1.8981077730179774, "val_SPICE": 0.36477802656606695, "val_agg_metrics": 2.6006564408285073, "val_best_epoch": 3}
+{"train_lr": "0.000", "train_loss": "0.794"}
+{"val_Bleu_1": 0.8810696357623563, "val_Bleu_2": 0.8136183726676663, "val_Bleu_3": 0.7570521832597118, "val_Bleu_4": 0.7089277561757316, "val_METEOR": 0.4751703052260016, "val_ROUGE_L": 0.8050331248864292, "val_CIDEr": 1.9181333965085057, "val_SPICE": 0.36911640288866376, "val_agg_metrics": 2.627061152684237, "val_best_epoch": 3}
+{"train_lr": "0.000", "train_loss": "0.789"}
+{"val_Bleu_1": 0.8792149444312869, "val_Bleu_2": 0.8097559866994631, "val_Bleu_3": 0.7531965070701051, "val_Bleu_4": 0.7056391597539261, "val_METEOR": 0.4735728545989154, "val_ROUGE_L": 0.8035693480362366, "val_CIDEr": 1.912091840354576, "val_SPICE": 0.368298567726356, "val_agg_metrics": 2.617731000108502, "val_best_epoch": 3}
+{"train_lr": "0.000", "train_loss": "0.786"}
+{"val_Bleu_1": 0.8799679222586297, "val_Bleu_2": 0.8110182672358647, "val_Bleu_3": 0.7543664035658875, "val_Bleu_4": 0.7066910852566439, "val_METEOR": 0.4747418889515529, "val_ROUGE_L": 0.8026074196857957, "val_CIDEr": 1.8970486764387975, "val_SPICE": 0.36813170421027047, "val_agg_metrics": 2.6037397616954414, "val_best_epoch": 3}
+{"train_lr": "0.000", "train_loss": "0.782"}
+{"val_Bleu_1": 0.8797380385874608, "val_Bleu_2": 0.8105966133690019, "val_Bleu_3": 0.7538177945580433, "val_Bleu_4": 0.7062944373727074, "val_METEOR": 0.47437770510486676, "val_ROUGE_L": 0.8030117389696043, "val_CIDEr": 1.907685838899622, "val_SPICE": 0.3709956780447116, "val_agg_metrics": 2.613980276272329, "val_best_epoch": 3}
+{"train_lr": "0.000", "train_loss": "0.778"}
+{"val_Bleu_1": 0.8792046396022991, "val_Bleu_2": 0.8100505791416676, "val_Bleu_3": 0.7532110768110115, "val_Bleu_4": 0.7057801775811543, "val_METEOR": 0.47341601429270896, "val_ROUGE_L": 0.7999740063252183, "val_CIDEr": 1.9053717736049256, "val_SPICE": 0.36785041523675727, "val_agg_metrics": 2.6111519511860797, "val_best_epoch": 3}
+{"train_lr": "0.000", "train_loss": "0.772"}
+{"val_Bleu_1": 0.8812598871390249, "val_Bleu_2": 0.8132858306198498, "val_Bleu_3": 0.7572967629744971, "val_Bleu_4": 0.7101219783481791, "val_METEOR": 0.4742217973470238, "val_ROUGE_L": 0.8044319689894016, "val_CIDEr": 1.910141490514605, "val_SPICE": 0.3679021128916481, "val_agg_metrics": 2.620263468862784, "val_best_epoch": 3}
+{"train_lr": "0.000", "train_loss": "0.769"}
+{"val_Bleu_1": 0.8756207306553313, "val_Bleu_2": 0.8042497364577874, "val_Bleu_3": 0.7461241091641867, "val_Bleu_4": 0.6975663222376507, "val_METEOR": 0.4707511984304552, "val_ROUGE_L": 0.7972840587970058, "val_CIDEr": 1.8757991032565065, "val_SPICE": 0.36808063770071053, "val_agg_metrics": 2.573365425494157, "val_best_epoch": 3}

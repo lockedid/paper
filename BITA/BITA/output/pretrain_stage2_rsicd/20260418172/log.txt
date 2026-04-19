@@ -1,0 +1,118 @@
+{
+    "run": {
+        "task": "image_text_pretrain",
+        "lr_sched": "linear_warmup_cosine_lr",
+        "init_lr": 0.0001,
+        "min_lr": 1e-05,
+        "warmup_lr": 1e-06,
+        "weight_decay": 0.05,
+        "max_epoch": 15,
+        "batch_size_train": 48,
+        "batch_size_eval": 64,
+        "num_workers": 0,
+        "warmup_steps": 4000,
+        "save_only_last_epoch": true,
+        "seed": 42,
+        "output_dir": "output/pretrain_stage2_rsicd/",
+        "amp": true,
+        "resume_ckpt_path": null,
+        "evaluate": false,
+        "train_splits": [
+            "train"
+        ],
+        "device": "cuda",
+        "world_size": 4,
+        "dist_url": "env://",
+        "distributed": true,
+        "rank": 0,
+        "gpu": 0,
+        "dist_backend": "nccl"
+    },
+    "model": {
+        "arch": "bita_opt",
+        "load_finetuned": false,
+        "pretrained": "/home/wj/code/BITA-main/BITA/BITA/output/pretrain_stage1_rsicd/20260418145/checkpoint_19.pth",
+        "finetuned": "",
+        "vit_model": "clip_L",
+        "image_size": 224,
+        "drop_path_rate": 0,
+        "use_grad_checkpoint": false,
+        "vit_precision": "fp16",
+        "freeze_vit": true,
+        "num_query_token": 32,
+        "opt_model": "facebook/opt-2.7b",
+        "prompt": "",
+        "model_type": "pretrain_opt2.7b",
+        "load_pretrained": true,
+        "agent_num": 64,
+        "gate_bias": -1.0
+    },
+    "preprocess": {
+        "vis_processor": {
+            "train": {
+                "name": "bita_image_train",
+                "image_size": 224
+            },
+            "eval": {
+                "name": "bita_image_eval",
+                "image_size": 224
+            }
+        },
+        "text_processor": {
+            "train": {
+                "name": "bita_caption"
+            },
+            "eval": {
+                "name": "bita_caption"
+            }
+        }
+    },
+    "datasets": {
+        "rsicd_caption": {
+            "dataset_card": "dataset_card/rsicd_caption.md",
+            "data_type": "images",
+            "build_info": {
+                "annotations": {
+                    "train": {
+                        "storage": "/home/wj/dataset/RSIC/RSICD/annotations/RSICD_train.json"
+                    },
+                    "val": {
+                        "storage": "/home/wj/dataset/RSIC/RSICD/annotations/RSICD_val.json"
+                    },
+                    "test": {
+                        "storage": "/home/wj/dataset/RSIC/RSICD/annotations/RSICD_test.json"
+                    }
+                },
+                "images": {
+                    "storage": "/home/wj/dataset/RSIC/RSICD/images/"
+                }
+            },
+            "vis_processor": {
+                "train": {
+                    "name": "bita_image_train",
+                    "image_size": 224
+                }
+            },
+            "text_processor": {
+                "train": {
+                    "name": "bita_caption"
+                }
+            }
+        }
+    }
+}
+{"train_lr": "0.000", "train_loss": "4.808"}
+{"train_lr": "0.000", "train_loss": "2.253"}
+{"train_lr": "0.000", "train_loss": "1.637"}
+{"train_lr": "0.000", "train_loss": "1.493"}
+{"train_lr": "0.000", "train_loss": "1.405"}
+{"train_lr": "0.000", "train_loss": "1.336"}
+{"train_lr": "0.000", "train_loss": "1.272"}
+{"train_lr": "0.000", "train_loss": "1.215"}
+{"train_lr": "0.000", "train_loss": "1.161"}
+{"train_lr": "0.000", "train_loss": "1.114"}
+{"train_lr": "0.000", "train_loss": "1.073"}
+{"train_lr": "0.000", "train_loss": "1.039"}
+{"train_lr": "0.000", "train_loss": "1.011"}
+{"train_lr": "0.000", "train_loss": "0.990"}
+{"train_lr": "0.000", "train_loss": "0.973"}

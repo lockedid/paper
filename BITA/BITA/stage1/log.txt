@@ -1,0 +1,289 @@
+{
+    "run": {
+        "task": "image_text_pretrain",
+        "lr_sched": "linear_warmup_cosine_lr",
+        "init_lr": 0.0001,
+        "min_lr": 1e-05,
+        "warmup_lr": 1e-06,
+        "weight_decay": 0.05,
+        "max_epoch": 5,
+        "batch_size_train": 96,
+        "batch_size_eval": 64,
+        "num_workers": 0,
+        "warmup_steps": 5000,
+        "seed": 42,
+        "output_dir": "output/",
+        "amp": true,
+        "resume_ckpt_path": null,
+        "evaluate": false,
+        "train_splits": [
+            "train"
+        ],
+        "device": "cuda",
+        "world_size": 1,
+        "dist_url": "env://",
+        "distributed": true,
+        "rank": 0,
+        "gpu": 0,
+        "dist_backend": "nccl"
+    },
+    "model": {
+        "arch": "bita_former",
+        "load_finetuned": false,
+        "pretrained": "https://storage.googleapis.com/sfr-vision-language-research/LAVIS/models/BLIP2/blip2_pretrained_vitL.pth",
+        "finetuned": "",
+        "vit_model": "clip_L",
+        "image_size": 224,
+        "drop_path_rate": 0,
+        "use_grad_checkpoint": false,
+        "vit_precision": "fp16",
+        "freeze_vit": true,
+        "num_query_token": 32,
+        "model_type": "pretrain_vitL",
+        "load_pretrained": false
+    },
+    "preprocess": {
+        "vis_processor": {
+            "train": {
+                "name": "bita_image_train",
+                "image_size": 224
+            },
+            "eval": {
+                "name": "bita_image_eval",
+                "image_size": 224
+            }
+        },
+        "text_processor": {
+            "train": {
+                "name": "bita_caption"
+            },
+            "eval": {
+                "name": "bita_caption"
+            }
+        }
+    },
+    "datasets": {
+        "rsicd_caption": {
+            "dataset_card": "dataset_card/rsicd_caption.md",
+            "data_type": "images",
+            "build_info": {
+                "annotations": {
+                    "train": {
+                        "storage": "/home/lzc/dataset/RSIC/RSICD/annotations/RSICD_train.json"
+                    }
+                },
+                "images": {
+                    "storage": "/home/lzc/dataset/RSIC/RSICD/images/"
+                }
+            },
+            "vis_processor": {
+                "train": {
+                    "name": "bita_image_train",
+                    "image_size": 224
+                }
+            },
+            "text_processor": {
+                "train": {
+                    "name": "bita_caption"
+                }
+            }
+        },
+        "nwpu_caption": {
+            "dataset_card": "dataset_card/nwpu_caption.md",
+            "data_type": "images",
+            "build_info": {
+                "annotations": {
+                    "train": {
+                        "storage": "/home/lzc/dataset/RSIC/NWPU/annotations/NWPU_train.json"
+                    }
+                },
+                "images": {
+                    "storage": "/home/lzc/dataset/RSIC/NWPU/images/"
+                }
+            },
+            "vis_processor": {
+                "train": {
+                    "name": "bita_image_train",
+                    "image_size": 224
+                }
+            },
+            "text_processor": {
+                "train": {
+                    "name": "bita_caption"
+                }
+            }
+        },
+        "ucm_caption": {
+            "dataset_card": "dataset_card/ucm_caption.md",
+            "data_type": "images",
+            "build_info": {
+                "annotations": {
+                    "train": {
+                        "storage": "/home/lzc/dataset/RSIC/UCM/annotations/UCM_train.json"
+                    }
+                },
+                "images": {
+                    "storage": "/home/lzc/dataset/RSIC/UCM/images/"
+                }
+            },
+            "vis_processor": {
+                "train": {
+                    "name": "bita_image_train",
+                    "image_size": 224
+                }
+            },
+            "text_processor": {
+                "train": {
+                    "name": "bita_caption"
+                }
+            }
+        }
+    }
+}
+{
+    "run": {
+        "task": "image_text_pretrain",
+        "lr_sched": "linear_warmup_cosine_lr",
+        "init_lr": 0.0001,
+        "min_lr": 1e-05,
+        "warmup_lr": 1e-06,
+        "weight_decay": 0.05,
+        "max_epoch": 5,
+        "batch_size_train": 96,
+        "batch_size_eval": 64,
+        "num_workers": 0,
+        "warmup_steps": 5000,
+        "seed": 42,
+        "output_dir": "output/",
+        "amp": true,
+        "resume_ckpt_path": null,
+        "evaluate": false,
+        "train_splits": [
+            "train"
+        ],
+        "device": "cuda",
+        "world_size": 1,
+        "dist_url": "env://",
+        "distributed": true,
+        "rank": 0,
+        "gpu": 0,
+        "dist_backend": "nccl"
+    },
+    "model": {
+        "arch": "bita_former",
+        "load_finetuned": false,
+        "pretrained": "https://storage.googleapis.com/sfr-vision-language-research/LAVIS/models/BLIP2/blip2_pretrained_vitL.pth",
+        "finetuned": "",
+        "vit_model": "clip_L",
+        "image_size": 224,
+        "drop_path_rate": 0,
+        "use_grad_checkpoint": false,
+        "vit_precision": "fp16",
+        "freeze_vit": true,
+        "num_query_token": 32,
+        "model_type": "pretrain_vitL",
+        "load_pretrained": false
+    },
+    "preprocess": {
+        "vis_processor": {
+            "train": {
+                "name": "bita_image_train",
+                "image_size": 224
+            },
+            "eval": {
+                "name": "bita_image_eval",
+                "image_size": 224
+            }
+        },
+        "text_processor": {
+            "train": {
+                "name": "bita_caption"
+            },
+            "eval": {
+                "name": "bita_caption"
+            }
+        }
+    },
+    "datasets": {
+        "rsicd_caption": {
+            "dataset_card": "dataset_card/rsicd_caption.md",
+            "data_type": "images",
+            "build_info": {
+                "annotations": {
+                    "train": {
+                        "storage": "/home/lzc/dataset/RSIC/RSICD/annotations/RSICD_train.json"
+                    }
+                },
+                "images": {
+                    "storage": "/home/lzc/dataset/RSIC/RSICD/images/"
+                }
+            },
+            "vis_processor": {
+                "train": {
+                    "name": "bita_image_train",
+                    "image_size": 224
+                }
+            },
+            "text_processor": {
+                "train": {
+                    "name": "bita_caption"
+                }
+            }
+        },
+        "nwpu_caption": {
+            "dataset_card": "dataset_card/nwpu_caption.md",
+            "data_type": "images",
+            "build_info": {
+                "annotations": {
+                    "train": {
+                        "storage": "/home/lzc/dataset/RSIC/NWPU/annotations/NWPU_train.json"
+                    }
+                },
+                "images": {
+                    "storage": "/home/lzc/dataset/RSIC/NWPU/images/"
+                }
+            },
+            "vis_processor": {
+                "train": {
+                    "name": "bita_image_train",
+                    "image_size": 224
+                }
+            },
+            "text_processor": {
+                "train": {
+                    "name": "bita_caption"
+                }
+            }
+        },
+        "ucm_caption": {
+            "dataset_card": "dataset_card/ucm_caption.md",
+            "data_type": "images",
+            "build_info": {
+                "annotations": {
+                    "train": {
+                        "storage": "/home/lzc/dataset/RSIC/UCM/annotations/UCM_train.json"
+                    }
+                },
+                "images": {
+                    "storage": "/home/lzc/dataset/RSIC/UCM/images/"
+                }
+            },
+            "vis_processor": {
+                "train": {
+                    "name": "bita_image_train",
+                    "image_size": 224
+                }
+            },
+            "text_processor": {
+                "train": {
+                    "name": "bita_caption"
+                }
+            }
+        }
+    }
+}
+{"train_lr": "0.000", "train_loss": "2.864"}
+{"train_lr": "0.000", "train_loss": "1.562"}
+{"train_lr": "0.000", "train_loss": "1.365"}
+{"train_lr": "0.000", "train_loss": "1.276"}
+{"train_lr": "0.000", "train_loss": "1.214"}

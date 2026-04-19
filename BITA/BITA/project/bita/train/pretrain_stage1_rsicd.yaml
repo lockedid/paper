@@ -1,0 +1,53 @@
+model:
+  arch: bita_former
+  model_type: pretrain_vitL
+  load_pretrained: False  # pretrained from scratch
+  freeze_vit: True
+  use_grad_checkpoint: False  # CRITICAL: Must be False when freeze_vit=True (performance optimization)
+  # 【优化】：使用推荐配置
+  # agent_num=64: 避免信息瓶颈（RSICD 46 类场景需要更大容量）
+  # gate_bias=-1.0: 平衡 Agent 利用率（sigmoid≈0.27）
+  agent_num: 64
+  gate_bias: -1.0
+
+datasets:
+  rsicd_caption:
+    vis_processor:
+        train:
+          name: "bita_image_train"
+          image_size: 224
+    text_processor:
+        train:
+          name: "bita_caption"
+
+run:
+  task: image_text_pretrain
+  # optimizer
+  lr_sched: "linear_warmup_cosine_lr"
+  init_lr: 1e-4
+  min_lr: 1e-5
+  warmup_lr: 1e-6
+
+  weight_decay: 0.05
+  max_epoch: 20
+  batch_size_train: 96
+  batch_size_eval: 64
+  num_workers: 0
+  warmup_steps: 4000  # RSICD is medium dataset, standard warmup
+  
+  # Save only the last epoch checkpoint for pretraining (saves disk space)
+  save_only_last_epoch: True
+
+  seed: 42
+  output_dir: "output/pretrain_stage1_rsicd/"
+
+  amp: True
+  resume_ckpt_path: null
+
+  evaluate: False 
+  train_splits: ["train"]
+
+  device: "cuda"
+  world_size: 1
+  dist_url: "env://"
+  distributed: True
